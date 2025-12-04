@@ -1,30 +1,117 @@
-# ☕ De um Simples Tradutor a um Simples Interpretador em JAVA
+
+# ☕ Lox – Interpretador Parcial
 
 
-Disciplina **Compiladores** – Engenharia da Computação UFMA 
+Disciplina **Compiladores** – Engenharia da Computação UFMA
 
-Professor: Sérgio Costa 
+Professor: Sérgio Costa
 
-Desenvolvedor: Kleiton Linneker Barbosa Pinheiro 
+Desenvolvedores:
+- **Kleiton Linneker Barbosa Pinheiro**
+- **Isabel Silva de Araujo**
 
-## 📘 Descrição
 
-Este projeto é um **tradutor e interpretador simples** implementado em Java, seguindo o tutorial ["Tradução Dirigida por Sintaxe"](https://profsergiocosta.notion.site/Tradu-o-dirigida-por-sintaxe-bc590c67d8234f81bee5cfdb505f2dd1) até a **Parte 8 – Um Simples Interpretador**.
+## 🎯 Objetivo
+Implementação incremental de um interpretador completo para a linguagem **Lox**, seguindo o conteúdo do livro *Crafting Interpreters* (Robert Nystrom).  
 
-O programa implementa, de forma incremental, os conceitos de compiladores.
+Até o momento, a implementação cobre:
 
-## ✅ Etapas Realizadas
+- ✔ Scanner (Cap. 4)
+- ✔ Representação da AST via GenerateAst (Cap. 5)
+- ✔ Parser recursivo descendente (Cap. 6)
+- ✔ **Interpreter** capaz de avaliar expressões (Cap. 7)
+- ✔ Suporte a:
+    - Números
+    - Booleanos
+    - Operadores aritméticos `+ - * /`
+    - Operadores de comparação `> >= < <= == !=`
+    - Operadores lógicos `!` e `or`/`and`
+    - Agrupamento `( ... )`
 
-- ✔️ Parte 1 – Um simples tradutor
-- ✔️ Parte 2 – Analisador léxico
-- ✔️ Parte 3 – Refatorando o tradutor: incluindo o analisador léxico
-- ✔️ Parte 4 – Suportando o tipo de token number  
-- ✔️ Parte 5 – Atualizando o Parser para suportar number  
-- ✔️ Parte 6 – Atualizando o Scanner e Parser para suportar variáveis  
-- ✔️ Parte 7 – Incluindo comando de impressão
-- ✔️ Parte 8 – Um simples interpretador
+Com isso, o Lox já **lê → analisa → constrói AST → interpreta → imprime o resultado.**
 
-Os commits no repositório seguem o desenvolvimento etapa por etapa, como solicitado.
+---
+
+## 📘 Referência
+**Livro:** *[Crafting Interpreters – Robert Nystrom](https://craftinginterpreters.com/)*  
+**Capítulo:** 4 – *Scanning*  
+**Capítulo:** 5 – *Representing Code*  
+**Capítulo:** 6 – *Parsing Expressions*  
+**Capítulo:** 7 – *Evaluating Expressions*  
+**Progresso até:** Seção **7.4 – Hooking Up the Interpreter**
+
+---
+
+## 📂 Estrutura do Projeto
+
+```text
+src/
+└── com/
+    └── craftinginterpreters/
+        ├── lox/
+        │   ├── AstPrinter.java
+        │   ├── Expr.java
+        │   ├── Interpreter.java
+        │   ├── Lox.java
+        │   ├── Parser.java
+        │   ├── RuntimeError.java        
+        │   ├── Scanner.java
+        │   ├── Token.java
+        │   └── TokenType.java
+        └── tool/
+            └── GenerateAst.java
+```
+
+---
+
+## 📄 Explicação dos Arquivos
+
+### 🔹 **Lox.java**
+Arquivo principal.  
+Responsável por iniciar o scanner → parser → interpreter.
+
+### 🔹 **Scanner.java**
+Lê os caracteres de entrada e transforma em tokens.
+
+### 🔹 **Token / TokenType**
+Estruturas que representam um token e seus tipos.
+
+### 🔹 **Expr.java**
+Arquivo gerado automaticamente por `GenerateAst.java`.  
+Define a representação da árvore sintática abstrata.
+
+### 🔹 **Parser.java**
+Converte uma lista de tokens em uma AST seguindo a gramática.
+
+### 🔹 **Interpreter.java**
+Avalia a AST e retorna o resultado.
+
+Implementa os métodos `visitLiteralExpr`, `visitBinaryExpr`, `visitUnaryExpr`, etc.
+
+### 🔹 **AstPrinter.java**
+Usado para depurar a AST imprimindo a estrutura da expressão.
+
+### 🔹 **GenerateAst.java**
+Ferramenta que gera automaticamente o arquivo `Expr.java`.
+
+---
+
+
+## 🧪 Testando o Interpretador
+
+Você pode rodar o programa e digitar:
+
+```
+(1 + 2) * (3 - 4) == 7
+```
+
+A saída esperada do `Lox` é:
+
+```
+false
+```
+
+---
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -32,3 +119,17 @@ Os commits no repositório seguem o desenvolvimento etapa por etapa, como solici
 - IDE: **IntelliJ IDEA 2025.2.3 (Ultimate Edition)**
 - Git + GitHub
 
+---
+
+## ▶ Como Executar
+
+### Via linha de comando:
+
+```sh
+javac com/craftinginterpreters/lox/*.java com/craftinginterpreters/tool/*.java
+java com.craftinginterpreters.lox.Lox
+```
+
+Ou execute diretamente via IDE.
+
+---
