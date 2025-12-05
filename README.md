@@ -20,15 +20,10 @@ Até o momento, a implementação cobre:
 - ✔ Representação da AST via GenerateAst (Cap. 5)
 - ✔ Parser recursivo descendente (Cap. 6)
 - ✔ **Interpreter** capaz de avaliar expressões (Cap. 7)
-- ✔ Suporte a:
-    - Números
-    - Booleanos
-    - Operadores aritméticos `+ - * /`
-    - Operadores de comparação `> >= < <= == !=`
-    - Operadores lógicos `!` e `or`/`and`
-    - Agrupamento `( ... )`
+- ✔ Declarações e Atribuições de Variáveis (Cap. 8)
+- ✔ Condicionais(IF), Operadores Lógicos (AND /OR) e Loops (WHILE  / FOR) (Cap. 9)
 
-Com isso, o Lox já **lê → analisa → constrói AST → interpreta → imprime o resultado.**
+Com isso, o Lox já funciona como uma linguagem dinâmica com variáveis, escopos e statements.
 
 ---
 
@@ -38,24 +33,28 @@ Com isso, o Lox já **lê → analisa → constrói AST → interpreta → impri
 **Capítulo:** 5 – *Representing Code*  
 **Capítulo:** 6 – *Parsing Expressions*  
 **Capítulo:** 7 – *Evaluating Expressions*  
-**Progresso até:** Seção **7.4 – Hooking Up the Interpreter**
+**Capítulo:** 8 – *Statements and State*  
+**Capítulo:** 9 – *Control Flow*  
+**Progresso até:** Seção **9.5 – For Loops**
 
 ---
 
 ## 📂 Estrutura do Projeto
 
 ```text
-src/
+src/main/java
 └── com/
     └── craftinginterpreters/
         ├── lox/
         │   ├── AstPrinter.java
+        │   ├── Environment.java        
         │   ├── Expr.java
         │   ├── Interpreter.java
         │   ├── Lox.java
         │   ├── Parser.java
-        │   ├── RuntimeError.java        
+        │   ├── RuntimeError.java               
         │   ├── Scanner.java
+        │   ├── Stmt.java         
         │   ├── Token.java
         │   └── TokenType.java
         └── tool/
@@ -94,6 +93,10 @@ Usado para depurar a AST imprimindo a estrutura da expressão.
 ### 🔹 **GenerateAst.java**
 Ferramenta que gera automaticamente o arquivo `Expr.java`.
 
+### 🔹 **Environment.java**
+Implementação do encadeamento de escopos.
+Armazena e recupera variáveis.
+
 ---
 
 
@@ -102,13 +105,22 @@ Ferramenta que gera automaticamente o arquivo `Expr.java`.
 Você pode rodar o programa e digitar:
 
 ```
-(1 + 2) * (3 - 4) == 7
+for (var i = 0; i < 10; i = i + 1) print i;
 ```
 
 A saída esperada do `Lox` é:
 
 ```
-false
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
 ```
 
 ---
@@ -116,6 +128,7 @@ false
 ## 🛠️ Tecnologias Utilizadas
 
 - Linguagem: **Java 21**
+- Maven
 - IDE: **IntelliJ IDEA 2025.2.3 (Ultimate Edition)**
 - Git + GitHub
 
@@ -128,6 +141,12 @@ false
 ```sh
 javac com/craftinginterpreters/lox/*.java com/craftinginterpreters/tool/*.java
 java com.craftinginterpreters.lox.Lox
+```
+
+### Via Maven
+```sh
+mvn install
+mvn exec:java -Dexec.mainClass="com.craftinginterpreters.lox.Lox"
 ```
 
 Ou execute diretamente via IDE.
