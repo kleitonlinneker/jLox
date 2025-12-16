@@ -50,6 +50,12 @@ class AstPrinter implements Expr.Visitor<String> {
                 expr.value);
     }
 
+    @Override
+    public String visitThisExpr(Expr.This expr) { //Adicionado para teste
+        return "this";
+    }
+
+
 
     @Override
     public String visitBinaryExpr(Expr.Binary expr) {
