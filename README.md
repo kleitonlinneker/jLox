@@ -1,5 +1,5 @@
 
-# ☕ Lox – Interpretador Parcial
+# ☕ Lox – Interpretador em Java
 
 
 Disciplina **Compiladores** – Engenharia da Computação UFMA
@@ -22,8 +22,17 @@ Até o momento, a implementação cobre:
 - ✔ **Interpreter** capaz de avaliar expressões (Cap. 7)
 - ✔ Declarações e Atribuições de Variáveis (Cap. 8)
 - ✔ Condicionais(IF), Operadores Lógicos (AND /OR) e Loops (WHILE  / FOR) (Cap. 9)
+- ✔ Funções, parâmetros, retorno e closures (Cap. 10)
+- ✔ Resolução estática de variáveis e escopos (`Resolver`) (Cap. 11)
+- ✔ Programação orientada a objetos:
+    - Classes
+    - Instâncias
+    - Métodos
+    - Construtores (`init`)
+    - Palavra-chave `this`
+      (Cap. 12)
 
-Com isso, o Lox já funciona como uma linguagem dinâmica com variáveis, escopos e statements.
+Com isso, o **Lox já funciona como uma linguagem dinâmica completa**, com escopo léxico, funções de primeira classe e orientação a objetos.
 
 ---
 
@@ -54,7 +63,13 @@ src/main/java
         │   ├── Expr.java
         │   ├── Interpreter.java
         │   ├── Lox.java
+        │   ├── LoxCallable.java
+        │   ├── LoxClass.java
+        │   ├── LoxFunction.java
+        │   ├── LoxInstance.java        
         │   ├── Parser.java
+        │   ├── Resolver.java
+        │   ├── Return.java        
         │   ├── RuntimeError.java               
         │   ├── Scanner.java
         │   ├── Stmt.java         
@@ -75,10 +90,10 @@ Responsável por iniciar o scanner → parser → interpreter.
 ### 🔹 **Scanner.java**
 Lê os caracteres de entrada e transforma em tokens.
 
-### 🔹 **Token / TokenType**
+### 🔹 **Token.java / TokenType.java**
 Estruturas que representam um token e seus tipos.
 
-### 🔹 **Expr.java**
+### 🔹 **Expr.java / Stmt.java**
 Arquivo gerado automaticamente por `GenerateAst.java`.  
 Define a representação da árvore sintática abstrata.
 
@@ -100,11 +115,39 @@ Ferramenta que gera automaticamente o arquivo `Expr.java`.
 Implementação do encadeamento de escopos.
 Armazena e recupera variáveis.
 
+### 🔹 **Resolver.java**
+Realiza a resolução estática de variáveis antes da interpretação.
+Define a profundidade de cada variável para acesso eficiente no ambiente correto.
+
+### 🔹 **LoxCallable.java**
+Interface que representa qualquer entidade chamável:
+Funções
+Métodos
+Classes (construtores)
+
+### 🔹 **LoxFunction.java**
+Implementa funções do Lox.
+Suporta:
+Parâmetros
+Retorno (return)
+Closures
+
+### 🔹 **LoxClass.java**
+Representa uma classe do Lox.
+Armazena métodos, herança e construtor (init).
+
+### 🔹 **LoxInstance.java**
+Representa uma instância de uma classe.
+Armazena campos e permite acesso a métodos.
+
+
 ---
 
 
 ## 🧪 Testando o Interpretador
 
+
+### **Exemplo com laço `for`:**
 Você pode rodar o programa e digitar:
 
 ```
@@ -126,14 +169,59 @@ A saída esperada do `Lox` é:
 9
 ```
 
+
+### **Exemplo com funções:**
+Você pode rodar o programa e digitar:
+
+```
+fun soma(a, b) {
+  return a + b;
+}
+
+print soma(3, 4);
+
+```
+
+A saída esperada do `Lox` é:
+
+```
+7
+```
+
+
+### **Exemplo com classes:**
+Você pode rodar o programa e digitar:
+
+```
+class Pessoa {
+  init(nome) {
+    this.nome = nome;
+  }
+
+  falar() {
+    print this.nome;
+  }
+}
+
+var p = Pessoa("Lox");
+p.falar();
+
+```
+
+A saída esperada do `Lox` é:
+
+```
+Lox
+```
+
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
 - Linguagem: **Java 21**
-- Maven
+- Build: **Maven**
 - IDE: **IntelliJ IDEA 2025.2.3 (Ultimate Edition)**
-- Git + GitHub
+- Controle de versão: **Git + GitHub**
 
 ---
 
@@ -152,6 +240,7 @@ mvn install
 mvn exec:java -Dexec.mainClass="com.craftinginterpreters.lox.Lox"
 ```
 
-Ou execute diretamente via IDE.
+### Via IDE
+Execute diretamente a classe `Lox.java`.
 
 ---
