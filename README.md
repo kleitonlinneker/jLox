@@ -24,13 +24,13 @@ Até o momento, a implementação cobre:
 - ✔ Condicionais(IF), Operadores Lógicos (AND /OR) e Loops (WHILE  / FOR) (Cap. 9)
 - ✔ Funções, parâmetros, retorno e closures (Cap. 10)
 - ✔ Resolução estática de variáveis e escopos (`Resolver`) (Cap. 11)
-- ✔ Programação orientada a objetos:
+- ✔ Programação orientada a objetos: (Cap. 12)
     - Classes
     - Instâncias
     - Métodos
     - Construtores (`init`)
     - Palavra-chave `this`
-      (Cap. 12)
+      
 
 Com isso, o **Lox já funciona como uma linguagem dinâmica completa**, com escopo léxico, funções de primeira classe e orientação a objetos.
 
@@ -109,7 +109,7 @@ Implementa os métodos `visitLiteralExpr`, `visitBinaryExpr`, `visitUnaryExpr`, 
 Usado para depurar a AST imprimindo a estrutura da expressão.
 
 ### 🔹 **GenerateAst.java**
-Ferramenta que gera automaticamente o arquivo `Expr.java`.
+Ferramenta que gera automaticamente os arquivos `Expr.java` e `Stmt.java`.
 
 ### 🔹 **Environment.java**
 Implementação do encadeamento de escopos.
@@ -120,17 +120,11 @@ Realiza a resolução estática de variáveis antes da interpretação.
 Define a profundidade de cada variável para acesso eficiente no ambiente correto.
 
 ### 🔹 **LoxCallable.java**
-Interface que representa qualquer entidade chamável:
-Funções
-Métodos
-Classes (construtores)
+Interface que representa qualquer entidade chamável:funções,métodos,classes (construtores).
 
 ### 🔹 **LoxFunction.java**
 Implementa funções do Lox.
-Suporta:
-Parâmetros
-Retorno (return)
-Closures
+Suporta parâmetros, retorno (return), closures.
 
 ### 🔹 **LoxClass.java**
 Representa uma classe do Lox.
