@@ -38,7 +38,10 @@ class AstPrinter implements Expr.Visitor<String> {
         return builder.toString();
     }
 
-
+    @Override
+    public String visitGetExpr(Expr.Get expr) { //Adicionado para teste
+        return parenthesize("get " + expr.name.lexeme, expr.object);
+    }
 
     @Override
     public String visitBinaryExpr(Expr.Binary expr) {
