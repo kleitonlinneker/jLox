@@ -1,0 +1,14 @@
+class Pessoa {
+  init(nome, sobrenome) {
+    this.nome = nome;
+    this.sobrenome = sobrenome;
+  }
+
+  apresentar() {
+    print "Nome: " + this.nome;
+    print "Sobrenome: " + this.sobrenome;
+  }
+}
+
+var p1 = Pessoa("Kleiton", "Linneker");
+p1.apresentar();
