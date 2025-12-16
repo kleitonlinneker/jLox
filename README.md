@@ -35,7 +35,9 @@ Com isso, o Lox já funciona como uma linguagem dinâmica com variáveis, escopo
 **Capítulo:** 7 – *Evaluating Expressions*  
 **Capítulo:** 8 – *Statements and State*  
 **Capítulo:** 9 – *Control Flow*  
-**Progresso até:** Seção **9.5 – For Loops**
+**Capítulo:** 10 – *Classes*
+
+**Progresso até:** Seção **12.7 – Constructors and Initializers**
 
 ---
 
